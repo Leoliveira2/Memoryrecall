@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Flame, Brain, Plus, BookOpen, BarChart3, Zap, Eye, Moon, Sun } from "lucide-react";
 import { toast } from "sonner";
+import SessionScreen from "@/components/SessionScreen";
 
 // ─── Types ────────────────────────────────────────────────────────────────
 interface MemoryItem {
@@ -100,7 +101,7 @@ export default function Home() {
   
   const [activeTab, setActiveTab] = useState("home");
   const [showAddDialog, setShowAddDialog] = useState(false);
-  const [showSessionDialog, setShowSessionDialog] = useState(false);
+  const [showSession, setShowSession] = useState(false);
   const [showWellnessDialog, setShowWellnessDialog] = useState(false);
   const [editingItem, setEditingItem] = useState<MemoryItem | null>(null);
   
@@ -203,13 +204,7 @@ export default function Home() {
     setShowWellnessDialog(false);
   };
 
-  const handleCompleteSession = () => {
-    const score = Math.round(Math.random() * 40 + 60); // Simulated score
-    setSessions([...sessions.filter(s => s.date !== today), { date: today, score, completed: true }]);
-    setStreak(streak + 1);
-    toast.success(`Session complete! Score: ${score}%`);
-    setShowSessionDialog(false);
-  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -278,7 +273,7 @@ export default function Home() {
               <h2 className="text-xl font-bold text-white mb-4">Daily Training</h2>
               <p className="text-gray-400 mb-6">Complete a training session to practice your memory with spaced repetition, active recall, and working memory drills.</p>
               <Button 
-                onClick={() => setShowSessionDialog(true)}
+                onClick={() => setShowSession(true)}
                 className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white"
               >
                 <Zap className="w-4 h-4 mr-2" />
@@ -602,33 +597,22 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {/* Session Dialog */}
-      <Dialog open={showSessionDialog} onOpenChange={setShowSessionDialog}>
-        <DialogContent className="bg-slate-800 border-slate-700">
-          <DialogHeader>
-            <DialogTitle className="text-white">Daily Training Session</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 text-center">
-            <Brain className="w-16 h-16 text-cyan-400 mx-auto" />
-            <div>
-              <p className="text-gray-400 mb-4">This session includes:</p>
-              <ul className="text-left space-y-2 text-gray-400">
-                <li>📖 Learn new items</li>
-                <li>🎯 Active recall test</li>
-                <li>⚡ Working memory drill</li>
-                <li>🔁 Review due cards</li>
-              </ul>
-            </div>
-            <p className="text-sm text-gray-500">Takes about 7 minutes</p>
-            <Button 
-              onClick={handleCompleteSession}
-              className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600"
-            >
-              Start Session
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* Session Screen */}
+      {showSession && (
+        <SessionScreen
+          items={items}
+          setItems={setItems}
+          dueItems={dueItems}
+          onComplete={(sessionScore) => {
+            const today = new Date().toDateString();
+            setSessions([...sessions.filter(s => s.date !== today), { date: today, score: sessionScore, completed: true }]);
+            setStreak(streak + 1);
+            toast.success(`Session complete! Score: ${sessionScore}%`);
+            setShowSession(false);
+          }}
+          onCancel={() => setShowSession(false)}
+        />
+      )}
     </div>
   );
 }
