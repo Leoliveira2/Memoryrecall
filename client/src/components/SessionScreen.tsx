@@ -64,14 +64,24 @@ export default function SessionScreen({
   const [wmChallenge] = useState(WORKING_MEMORY_CHALLENGES[challengeIndex % WORKING_MEMORY_CHALLENGES.length]);
   const [wmPhase, setWmPhase] = useState("show");
   const [wmInput, setWmInput] = useState<string[]>([]);
+  const [wmShuffled, setWmShuffled] = useState<string[]>([]);
   const [reviewIdx, setReviewIdx] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
   const [reviewItems, setReviewItems] = useState(dueItems.slice(0, 5));
   const [reviewShown, setReviewShown] = useState(false);
 
+  // Shuffle items when entering recall phase
+  useEffect(() => {
+    if (wmPhase === "recall" && wmShuffled.length === 0) {
+      const shuffled = [...wmChallenge.items].sort(() => Math.random() - 0.5);
+      setWmShuffled(shuffled);
+    }
+  }, [wmPhase, wmChallenge.items, wmShuffled.length]);
+
   const learnItems = items.slice(-3);
   const currentPhase = phases[phase];
   const score = scores.length ? Math.round(scores.filter(s => s >= 3).length / scores.length * 100) : 0;
+  const wmIsCorrect = wmInput.length === wmChallenge.items.length && wmInput.every((item, i) => item === wmChallenge.items[i]);
 
   useEffect(() => {
     if (currentPhase === "working_memory" && wmPhase === "show") {
@@ -290,30 +300,49 @@ export default function SessionScreen({
 
             {wmPhase === "recall" && (
               <>
-                <p className="text-gray-400 text-sm mb-4">Tap the items you remember, in order:</p>
+                <p className="text-gray-400 text-sm mb-4">Click the items in the order you saw them:</p>
                 <div className="flex gap-2 flex-wrap mb-4 justify-center">
-                  {wmChallenge.items.map((item, i) => (
-                    <Button
-                      key={i}
-                      onClick={() => {
-                        if (!wmInput.includes(item)) {
-                          setWmInput(w => [...w, item]);
-                        }
-                      }}
-                      className={`w-12 h-12 text-lg ${wmInput.includes(item) ? "opacity-30" : ""}`}
-                      variant="outline"
-                    >
-                      {item}
-                    </Button>
-                  ))}
+                  {wmShuffled.map((item, i) => {
+                    const clickedIndex = wmInput.indexOf(item);
+                    const isClicked = clickedIndex !== -1;
+                    return (
+                      <Button
+                        key={i}
+                        onClick={() => {
+                          if (!isClicked) {
+                            setWmInput(w => [...w, item]);
+                          }
+                        }}
+                        className={`w-14 h-14 text-lg font-bold ${
+                          isClicked
+                            ? "bg-green-500/20 border-green-500/50 text-green-400"
+                            : "bg-slate-700/50 border-slate-600 text-white hover:bg-slate-600"
+                        }`}
+                        variant="outline"
+                        disabled={isClicked}
+                      >
+                        {isClicked ? clickedIndex + 1 : item}
+                      </Button>
+                    );
+                  })}
                 </div>
-                <p className="text-xs text-gray-500 mb-4">Your answer: {wmInput.join(" → ") || "—"}</p>
+                <p className="text-xs text-gray-500 mb-4">Sequence: {wmInput.join(" → ") || "—"}</p>
+                {wmInput.length === wmChallenge.items.length && (
+                  <div className={`mb-4 p-3 rounded-lg text-sm ${
+                    wmIsCorrect
+                      ? "bg-green-500/10 border border-green-500/30 text-green-400"
+                      : "bg-red-500/10 border border-red-500/30 text-red-400"
+                  }`}>
+                    {wmIsCorrect ? "✓ Perfect! You got the sequence right!" : "✗ Sequence incorrect. Try again next time!"}
+                  </div>
+                )}
                 <Button
                   onClick={() => {
-                    setScores(s => [...s, wmInput.length === wmChallenge.items.length ? 5 : 3]);
+                    setScores(s => [...s, wmIsCorrect ? 5 : wmInput.length === wmChallenge.items.length ? 2 : 1]);
                     setPhase(4);
                   }}
-                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600"
+                  disabled={wmInput.length !== wmChallenge.items.length}
+                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 disabled:opacity-50"
                 >
                   Continue <ChevronRight className="w-4 h-4 ml-2" />
                 </Button>
