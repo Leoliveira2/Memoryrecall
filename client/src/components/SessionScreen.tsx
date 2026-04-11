@@ -302,26 +302,32 @@ export default function SessionScreen({
               <>
                 <p className="text-gray-400 text-sm mb-4">Click the items in the order you saw them:</p>
                 <div className="flex gap-2 flex-wrap mb-4 justify-center">
-                  {wmShuffled.map((item, i) => {
-                    const clickedIndex = wmInput.indexOf(item);
-                    const isClicked = clickedIndex !== -1;
+                  {wmShuffled.map((item, shuffledIdx) => {
+                    const countInSequence = wmChallenge.items.filter(i => i === item).length;
+                    const countInInput = wmInput.filter(i => i === item).length;
+                    const canClick = countInInput < countInSequence;
                     return (
                       <Button
-                        key={i}
+                        key={shuffledIdx}
                         onClick={() => {
-                          if (!isClicked) {
+                          if (canClick) {
                             setWmInput(w => [...w, item]);
                           }
                         }}
-                        className={`w-14 h-14 text-lg font-bold ${
-                          isClicked
+                        className={`w-14 h-14 text-lg font-bold relative ${
+                          countInInput >= countInSequence
                             ? "bg-green-500/20 border-green-500/50 text-green-400"
                             : "bg-slate-700/50 border-slate-600 text-white hover:bg-slate-600"
                         }`}
                         variant="outline"
-                        disabled={isClicked}
+                        disabled={countInInput >= countInSequence}
                       >
-                        {isClicked ? clickedIndex + 1 : item}
+                        {item}
+                        {countInInput > 0 && (
+                          <span className="absolute -top-2 -right-2 bg-cyan-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                            {countInInput}
+                          </span>
+                        )}
                       </Button>
                     );
                   })}
