@@ -27,6 +27,7 @@ interface SessionScreenProps {
   onComplete: (score: number) => void;
   onCancel: () => void;
   challengeIndex?: number;
+  dayNumber?: number;
 }
 
 const WORKING_MEMORY_CHALLENGES = [
@@ -35,6 +36,14 @@ const WORKING_MEMORY_CHALLENGES = [
   { type: "words", prompt: "Hold these words in mind:", items: ["CLOUD", "RIVER", "STONE", "FLAME"], delay: 4000 },
   { type: "sequence", prompt: "Remember this pattern:", items: ["🔺", "⬛", "🔵", "🔺", "🔵", "⬛"], delay: 3500 },
 ];
+
+function getChallengeIndexByDay(dayNumber?: number): number {
+  if (!dayNumber) return 0;
+  if (dayNumber <= 10) return 0;
+  if (dayNumber <= 20) return 1;
+  if (dayNumber <= 25) return 2;
+  return 3;
+}
 
 function sm2(item: MemoryItem, quality: number) {
   let { interval, easeFactor } = item;
@@ -56,12 +65,14 @@ export default function SessionScreen({
   onComplete,
   onCancel,
   challengeIndex = 0,
+  dayNumber = 1,
 }: SessionScreenProps) {
   const phases = ["checkin", "learn", "recall", "working_memory", "review", "summary"];
   const [phase, setPhase] = useState(0);
   const [learnIdx, setLearnIdx] = useState(0);
   const [recallState, setRecallState] = useState({ shown: false, answer: "" });
-  const [wmChallenge] = useState(WORKING_MEMORY_CHALLENGES[challengeIndex % WORKING_MEMORY_CHALLENGES.length]);
+  const progressiveChallengeIndex = getChallengeIndexByDay(dayNumber);
+  const [wmChallenge] = useState(WORKING_MEMORY_CHALLENGES[progressiveChallengeIndex]);
   const [wmPhase, setWmPhase] = useState("show");
   const [wmInput, setWmInput] = useState<string[]>([]);
   const [wmShuffled, setWmShuffled] = useState<string[]>([]);
@@ -287,7 +298,7 @@ export default function SessionScreen({
                   ))}
                 </div>
                 <p className="text-xs text-gray-500">Memorizing… ({Math.round(wmChallenge.delay / 1000)}s)</p>
-                <p className="text-xs text-gray-400 mt-3">Challenge {challengeIndex + 1} of {WORKING_MEMORY_CHALLENGES.length}</p>
+                <p className="text-xs text-gray-400 mt-3">Day {dayNumber}: {wmChallenge.type.charAt(0).toUpperCase() + wmChallenge.type.slice(1)} Challenge</p>
               </div>
             )}
 

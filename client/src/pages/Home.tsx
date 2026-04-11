@@ -30,6 +30,12 @@ interface MemoryItem {
     association?: string;
     keyPoint?: string;
   };
+  context?: {
+    definition?: string;
+    example?: string;
+    importance?: string;
+  };
+  dayNumber?: number;
 }
 
 interface WellnessData {
@@ -114,12 +120,18 @@ export default function Home() {
     category: string;
     difficulty: "easy" | "medium" | "hard";
     tags: string;
+    definition?: string;
+    example?: string;
+    importance?: string;
   }>({
     title: "",
     content: "",
     category: "study",
     difficulty: "medium",
     tags: "",
+    definition: "",
+    example: "",
+    importance: "",
   });
   
   const [wellnessData, setWellnessData] = useState<WellnessData>({
@@ -156,6 +168,11 @@ export default function Home() {
       easeFactor: 2.5,
       history: [],
       created: Date.now(),
+      context: {
+        definition: formData.definition || undefined,
+        example: formData.example || undefined,
+        importance: formData.importance || undefined,
+      },
     };
 
     if (editingItem) {
@@ -531,6 +548,36 @@ export default function Home() {
                 value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
                 className="bg-slate-700 border-slate-600 text-white"
+              />
+            </div>
+            <div className="border-t border-slate-700 pt-4">
+              <p className="text-gray-400 text-xs mb-3 font-semibold">📚 DEEP ENCODING (Optional but Recommended)</p>
+            </div>
+            <div>
+              <label className="text-gray-400 text-sm mb-1 block">Definition / What is it?</label>
+              <Textarea
+                placeholder="Clear, concise definition or explanation..."
+                value={formData.definition || ""}
+                onChange={(e) => setFormData({ ...formData, definition: e.target.value })}
+                className="bg-slate-700 border-slate-600 text-white min-h-16"
+              />
+            </div>
+            <div>
+              <label className="text-gray-400 text-sm mb-1 block">Example / How to use?</label>
+              <Textarea
+                placeholder="Practical example or use case..."
+                value={formData.example || ""}
+                onChange={(e) => setFormData({ ...formData, example: e.target.value })}
+                className="bg-slate-700 border-slate-600 text-white min-h-16"
+              />
+            </div>
+            <div>
+              <label className="text-gray-400 text-sm mb-1 block">Importance / Why does it matter?</label>
+              <Textarea
+                placeholder="Why is this important? What's the benefit or consequence?..."
+                value={formData.importance || ""}
+                onChange={(e) => setFormData({ ...formData, importance: e.target.value })}
+                className="bg-slate-700 border-slate-600 text-white min-h-16"
               />
             </div>
             <Button 
