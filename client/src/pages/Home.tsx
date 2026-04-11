@@ -40,9 +40,11 @@ interface WellnessData {
 }
 
 interface SessionRecord {
+  id: string;
   date: string;
   score: number;
   completed: boolean;
+  challengeIndex: number;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────
@@ -104,6 +106,7 @@ export default function Home() {
   const [showSession, setShowSession] = useState(false);
   const [showWellnessDialog, setShowWellnessDialog] = useState(false);
   const [editingItem, setEditingItem] = useState<MemoryItem | null>(null);
+  const [currentChallengeIndex, setCurrentChallengeIndex] = useState(0);
   
   const [formData, setFormData] = useState<{
     title: string;
@@ -128,7 +131,8 @@ export default function Home() {
 
   const today = new Date().toDateString();
   const todayWellness = wellness.find(w => w.date === today);
-  const todaySession = sessions.find(s => s.date === today);
+  const todaySessions = sessions.filter(s => s.date === today);
+  const nextChallengeIndex = todaySessions.length % 4; // Rotate through 4 challenges
   const dueItems = items.filter(i => i.nextReview <= Date.now());
   const retentionRate = items.length > 0 
     ? Math.round(items.flatMap(i => i.history).filter(h => h.quality >= 3).length / Math.max(1, items.flatMap(i => i.history).length) * 100)
@@ -241,8 +245,8 @@ export default function Home() {
             <div className="text-3xl font-bold text-purple-400">{items.length}</div>
           </Card>
           <Card className="bg-slate-800/50 border-slate-700 p-4">
-            <div className="text-gray-400 text-sm mb-1">Sessions</div>
-            <div className="text-3xl font-bold text-pink-400">{sessions.length}</div>
+            <div className="text-gray-400 text-sm mb-1">Today's Challenges</div>
+            <div className="text-3xl font-bold text-pink-400">{todaySessions.length}/4</div>
           </Card>
         </div>
 
@@ -273,11 +277,14 @@ export default function Home() {
               <h2 className="text-xl font-bold text-white mb-4">Daily Training</h2>
               <p className="text-gray-400 mb-6">Complete a training session to practice your memory with spaced repetition, active recall, and working memory drills.</p>
               <Button 
-                onClick={() => setShowSession(true)}
+                onClick={() => {
+                  setCurrentChallengeIndex(nextChallengeIndex);
+                  setShowSession(true);
+                }}
                 className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white"
               >
                 <Zap className="w-4 h-4 mr-2" />
-                Start Training Session (~7 min)
+                Start Training Session (~7 min) - Challenge {nextChallengeIndex + 1}/4
               </Button>
             </Card>
 
@@ -296,12 +303,13 @@ export default function Home() {
               </Card>
             )}
 
-            {todaySession && (
+            {todaySessions.length > 0 && (
               <Card className="bg-green-500/10 border-green-500/30 p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-bold text-green-400 mb-1">✓ Session Complete</h3>
-                    <p className="text-gray-400">Score: {todaySession.score}%</p>
+                    <h3 className="text-lg font-bold text-green-400 mb-1">✓ Sessions Completed Today</h3>
+                    <p className="text-gray-400">{todaySessions.length} of 4 challenges done</p>
+                    <p className="text-gray-500 text-sm mt-2">Avg Score: {Math.round(todaySessions.reduce((a, s) => a + s.score, 0) / todaySessions.length)}%</p>
                   </div>
                   <Brain className="w-12 h-12 text-green-400 opacity-50" />
                 </div>
@@ -605,12 +613,20 @@ export default function Home() {
           dueItems={dueItems}
           onComplete={(sessionScore) => {
             const today = new Date().toDateString();
-            setSessions([...sessions.filter(s => s.date !== today), { date: today, score: sessionScore, completed: true }]);
+            const newSession: SessionRecord = {
+              id: Date.now().toString(),
+              date: today,
+              score: sessionScore,
+              completed: true,
+              challengeIndex: currentChallengeIndex,
+            };
+            setSessions([...sessions, newSession]);
             setStreak(streak + 1);
             toast.success(`Session complete! Score: ${sessionScore}%`);
             setShowSession(false);
           }}
           onCancel={() => setShowSession(false)}
+          challengeIndex={currentChallengeIndex}
         />
       )}
     </div>

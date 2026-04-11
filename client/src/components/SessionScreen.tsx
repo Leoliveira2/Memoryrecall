@@ -26,6 +26,7 @@ interface SessionScreenProps {
   dueItems: MemoryItem[];
   onComplete: (score: number) => void;
   onCancel: () => void;
+  challengeIndex?: number;
 }
 
 const WORKING_MEMORY_CHALLENGES = [
@@ -54,12 +55,13 @@ export default function SessionScreen({
   dueItems,
   onComplete,
   onCancel,
+  challengeIndex = 0,
 }: SessionScreenProps) {
   const phases = ["checkin", "learn", "recall", "working_memory", "review", "summary"];
   const [phase, setPhase] = useState(0);
   const [learnIdx, setLearnIdx] = useState(0);
   const [recallState, setRecallState] = useState({ shown: false, answer: "" });
-  const [wmChallenge] = useState(WORKING_MEMORY_CHALLENGES[Math.floor(Math.random() * WORKING_MEMORY_CHALLENGES.length)]);
+  const [wmChallenge] = useState(WORKING_MEMORY_CHALLENGES[challengeIndex % WORKING_MEMORY_CHALLENGES.length]);
   const [wmPhase, setWmPhase] = useState("show");
   const [wmInput, setWmInput] = useState<string[]>([]);
   const [reviewIdx, setReviewIdx] = useState(0);
@@ -275,6 +277,7 @@ export default function SessionScreen({
                   ))}
                 </div>
                 <p className="text-xs text-gray-500">Memorizing… ({Math.round(wmChallenge.delay / 1000)}s)</p>
+                <p className="text-xs text-gray-400 mt-3">Challenge {challengeIndex + 1} of {WORKING_MEMORY_CHALLENGES.length}</p>
               </div>
             )}
 
