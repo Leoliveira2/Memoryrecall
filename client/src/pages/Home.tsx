@@ -675,7 +675,6 @@ export default function Home() {
             setShowSession(false);
           }}
           onCancel={() => setShowSession(false)}
-          challengeIndex={currentChallengeIndex}
         />
       )}
     </div>
