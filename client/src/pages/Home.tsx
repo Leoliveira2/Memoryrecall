@@ -658,6 +658,8 @@ export default function Home() {
           items={items}
           setItems={setItems}
           dueItems={dueItems}
+          dayNumber={currentChallengeIndex + 1}
+          challengeIndex={currentChallengeIndex}
           onComplete={(sessionScore) => {
             const today = new Date().toDateString();
             const newSession: SessionRecord = {
