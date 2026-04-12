@@ -1,65 +1,69 @@
-# 🧠 Memory Lab - Train Your Memory with Science
+# 🧠 Memory Lab - Advanced Memory Training System
 
-A modern, science-backed memory training application built with React and TypeScript. Memory Lab combines **Spaced Repetition**, **Active Recall**, and **Working Memory Drills** to help you improve your short-term, medium-term, and long-term memory.
+A comprehensive, science-backed memory training application built with React and TypeScript. Memory Lab combines **Spaced Repetition (SM-2)**, **Active Recall**, **Working Memory Training**, and **Wellness Integration** to help you improve your short-term, medium-term, and long-term memory.
 
-## 🚀 Live Demo
+🔗 **Live Demo:** https://3000-io1htz5efwsdt44y7go9n-49b24959.us2.manus.computer
 
-**Try Memory Lab now:** https://3000-io1htz5efwsdt44y7go9n-49b24959.us2.manus.computer
+---
 
-## ✨ Features
+## ✨ Core Features
 
-### Core Memory Training
-- **📚 Spaced Repetition (SM-2)** - Scientifically-proven algorithm to optimize review intervals
-- **🎯 Active Recall** - Test yourself on learned material without looking at the source
-- **⚡ Working Memory Drills** - Dynamic challenges with sequences, numbers, and patterns
-- **🔁 Intelligent Review Queue** - Only review items that are due, based on your performance
+### Memory Training Methods
+- **📚 Spaced Repetition (SM-2)** — Scientifically-proven algorithm to optimize review intervals
+- **🎯 Active Recall** — Test yourself without looking at the source material
+- **⚡ Working Memory Drills** — Four progressive challenge types (Colors → Numbers → Words → Patterns)
+- **🧠 Deep Encoding** — Add context (Definition, Example, Importance, Vivid Cues) for stronger retention
+
+### Flexible Training Modes
+- **Recovery Mode** — Lighter sessions (3 new items, 5 reviews, light intensity)
+- **Balanced Mode** — Standard training (5 new items, 10 reviews, standard intensity) — **Recommended**
+- **Stretch Mode** — Advanced sessions (8 new items, 15 reviews, high intensity)
 
 ### Memory Item Management
 - ✅ Add, edit, and delete memory items
-- 🏷️ Organize by categories (Study, Work, Names, Language, Health, Procedures)
+- 🏷️ Organize by 6 categories (Study, Work, Names, Language, Health, Procedures)
 - 📊 Track difficulty levels (Easy, Medium, Hard)
 - 🔖 Tag items for better organization
-- 📈 View retention rate per category
+- 🎨 Memory Palace support (associate items with physical locations)
+- 📝 Source tracking (Manual, Capture, Curriculum)
+
+### 30-Day Curriculum
+Pre-loaded curriculum covering memory techniques, neuroscience, and practical applications:
+- **Days 1-10:** Memory Techniques (Spaced Repetition, Active Recall, Chunking, Memory Palace, etc.)
+- **Days 11-20:** Neuroscience of Memory (Hippocampus, Synaptic Plasticity, LTP, Neurotransmitters, etc.)
+- **Days 21-30:** Practical Applications (Languages, Names, Numbers, Skills, Stress Management, etc.)
 
 ### Daily Wellness Tracking
-- 🌙 Sleep quality monitoring
-- ⚡ Stress level tracking
-- 💪 Exercise logging
+- 🌙 Sleep quality monitoring (Poor / OK / Good)
+- ⚡ Stress level tracking (Low / Medium / High)
+- 💪 Exercise logging (Yes / No)
 - 📊 Correlate wellness with memory performance
 
-### Progress & Insights
+### Progress & Analytics
 - 🔥 Streak counter for daily consistency
 - 📈 Retention rate dashboard
 - 📊 Category-wise performance breakdown
 - 🏆 Session scores and history
+- 📉 Learning curves and weak areas
+
+---
 
 ## 🛠️ Tech Stack
 
 - **Frontend:** React 19 + TypeScript
-- **Styling:** Tailwind CSS 4 + shadcn/ui
-- **Storage:** LocalStorage (client-side persistence)
-- **Build:** Vite
+- **UI Components:** shadcn/ui + Radix UI
+- **Styling:** Tailwind CSS 4
+- **State Management:** React Hooks
+- **Routing:** Wouter
+- **Notifications:** Sonner
+- **Build Tool:** Vite
 - **Package Manager:** pnpm
 
-## 📋 How It Works
-
-### The Training Session (7 minutes)
-1. **Learn Phase** - Study your last 3 added items carefully
-2. **Recall Phase** - Test yourself on what you remember
-3. **Working Memory Drill** - Quick challenge to train working memory
-4. **Review Phase** - Review items due for spaced repetition
-5. **Summary** - See your session score and progress
-
-### The SM-2 Algorithm
-Memory Lab uses the **SM-2 (Spaced Repetition) Algorithm** to optimize when you should review each item:
-- Items you struggle with appear sooner
-- Items you master appear less frequently
-- The system adapts based on your performance
-- Intervals increase exponentially for mastered items
+---
 
 ## 🚀 Getting Started
 
-### Option 1: Run Locally
+### Installation
 
 ```bash
 # Clone the repository
@@ -71,19 +75,138 @@ pnpm install
 
 # Start development server
 pnpm dev
-
-# Open http://localhost:3000 in your browser
 ```
 
-### Option 2: Build for Production
+The app will be available at `http://localhost:3000`
 
-```bash
-# Build the project
-pnpm build
+### First Steps
 
-# Preview production build
-pnpm preview
-```
+1. **Daily Check-In** — Track your sleep, stress, and exercise
+2. **Add Items** — Create memory items with deep encoding context
+3. **Start Training** — Begin a session (choose Recovery/Balanced/Stretch mode)
+4. **Review Progress** — Check your retention rate and insights
+
+---
+
+## 📚 How to Use
+
+### Adding Memory Items
+
+1. Click **"+ Add Item"** button
+2. Fill in:
+   - **Title** — What you want to remember
+   - **Content** — Full description
+   - **Category** — Study, Language, Procedures, Health, etc.
+   - **Difficulty** — Easy / Medium / Hard
+3. (Optional) Add **Deep Encoding** context:
+   - Definition — What is it?
+   - Example — How to use it?
+   - Importance — Why does it matter?
+   - Memory Palace — Associate with a location
+   - Vivid Cue — Create a memorable association
+4. Click **"Add Item"**
+
+### Training Session Flow
+
+Each session includes 6 phases:
+
+1. **Check-in** — Confirm you're ready and select training mode
+2. **Learn** — Study new/recent items carefully
+3. **Recall** — Test your memory (active recall)
+4. **Working Memory** — Challenge your working memory with:
+   - 🎨 Colors (Days 1-10)
+   - 🔢 Numbers (Days 11-20)
+   - 📝 Words (Days 21-30)
+   - 🎭 Patterns (Days 21-30)
+5. **Review** — Revisit items scheduled for spaced repetition
+6. **Summary** — See your session score and progress
+
+### Session Modes
+
+| Mode | New Items | Reviews | Intensity | Best For |
+|------|-----------|---------|-----------|----------|
+| **Recovery** | 3 | 5 | Light | Busy days, low energy |
+| **Balanced** | 5 | 10 | Standard | Daily training (recommended) |
+| **Stretch** | 8 | 15 | High | Intensive learning |
+
+---
+
+## 🧠 Memory Science Behind the App
+
+### Spaced Repetition (SM-2)
+Based on Hermann Ebbinghaus's "Forgetting Curve," the SM-2 algorithm schedules reviews at optimal intervals to maximize long-term retention. Items you struggle with appear sooner; mastered items appear less frequently.
+
+### Active Recall
+Testing yourself is far more effective than passive review. Each session forces you to retrieve information from memory, strengthening neural pathways.
+
+### Working Memory Training
+Working memory (short-term memory capacity) can be improved through targeted exercises. Memory Lab includes dynamic challenges to strengthen this cognitive ability.
+
+### Deep Encoding
+Connecting new information to existing knowledge through elaboration creates stronger, more retrievable memories. Adding context (definition, example, importance) significantly improves retention.
+
+### Wellness Correlation
+Sleep consolidates memories, stress impairs recall, and exercise improves cognitive function. Memory Lab tracks these relationships to help you optimize your learning environment.
+
+---
+
+## 📊 Dashboard
+
+### Home Tab
+- **Retention Rate** — Overall success percentage
+- **Due Today** — Items scheduled for review
+- **Total Items** — All items in your collection
+- **Today's Challenges** — Progress on daily working memory challenges
+
+### Items Tab
+- View all memory items
+- Edit or delete items
+- Filter by category or difficulty
+- See review history and learning curves
+
+### Review Tab
+- Items due for review
+- Quick review interface
+- Spaced repetition scheduling
+- Performance tracking
+
+### Insights Tab
+- **Category Breakdown** — Performance by topic
+- **Wellness Correlation** — Sleep/stress/exercise impact
+- **Streak Tracking** — Consecutive training days
+- **Learning Analytics** — Progress over time
+
+---
+
+## 🎮 Working Memory Challenges
+
+### Challenge Types
+
+**Colors (Sequence)**
+- Remember a sequence of colored circles
+- Recall by clicking in the correct order
+- Difficulty: Easy (5 items)
+- Days: 1-10
+
+**Numbers**
+- Memorize a sequence of digits
+- Recall by clicking in the correct order
+- Difficulty: Medium (6 items)
+- Days: 11-20
+
+**Words**
+- Hold vocabulary words in mind
+- Recall by clicking in the correct order
+- Difficulty: Hard (4 items)
+- Days: 21-30
+
+**Patterns**
+- Remember complex emoji patterns with repetitions
+- Recall by clicking each item the correct number of times
+- Difficulty: Hard (6 items with repetitions)
+- Days: 21-30
+
+---
 
 ## 📁 Project Structure
 
@@ -91,76 +214,41 @@ pnpm preview
 client/
 ├── src/
 │   ├── pages/
-│   │   └── Home.tsx          # Main application page
+│   │   └── Home.tsx              # Main application page
 │   ├── components/
-│   │   └── SessionScreen.tsx # Training session component
-│   ├── App.tsx               # App router and layout
-│   ├── main.tsx              # React entry point
-│   └── index.css             # Global styles and theme
-├── public/                   # Static assets
-└── index.html               # HTML template
+│   │   ├── SessionScreen.tsx     # Training session component
+│   │   └── ui/                   # shadcn/ui components
+│   ├── lib/
+│   │   └── curriculum30days.ts   # 30-day curriculum data
+│   ├── App.tsx                   # App router and layout
+│   ├── main.tsx                  # React entry point
+│   └── index.css                 # Global styles and theme
+├── public/                       # Static assets
+└── index.html                    # HTML template
 
 server/
-└── index.ts                 # Express server (production)
+└── index.ts                      # Express server (production)
 ```
 
-## 🎯 Usage Guide
+---
 
-### Adding a Memory Item
-1. Go to the **Items** tab
-2. Click **Add Item**
-3. Fill in:
-   - **Title** - What you want to remember
-   - **Content** - Full description or definition
-   - **Category** - Choose from 6 categories
-   - **Difficulty** - Easy, Medium, or Hard
-   - **Tags** - Comma-separated keywords
-4. Click **Add Item**
+## 💾 Data Storage
 
-### Starting a Training Session
-1. Click **Start Training Session** on the Home tab
-2. Go through each phase:
-   - Learn the items
-   - Test your recall
-   - Complete the working memory drill
-   - Review due items
-3. Rate your performance (Forgot, Hard, Good, Easy)
-4. Get your session score
+All data is stored locally in your browser's `localStorage`:
+- Memory items with full history
+- Training sessions and scores
+- Wellness data
+- User preferences
 
-### Tracking Wellness
-1. Complete the **Daily Check-In**
-2. Log your sleep quality, stress level, and exercise
-3. Memory Lab will correlate this with your memory performance
+**Features:**
+- ✅ No data sent to external servers
+- ✅ Works completely offline
+- ✅ Data persists between sessions
+- ⚠️ Clearing browser cache will delete data
 
-### Viewing Insights
-1. Go to the **Insights** tab
-2. See retention rates by category
-3. Check wellness correlations
-4. Identify items that need more practice
+**Recommendation:** Regularly backup your data (export feature coming soon)
 
-## 📊 Key Metrics
-
-- **Retention Rate** - Percentage of items you remember correctly
-- **Due Today** - Number of items ready for review
-- **Total Items** - All items in your memory database
-- **Sessions** - Number of training sessions completed
-- **Streak** - Consecutive days of training
-
-## 🧠 Memory Science Behind Memory Lab
-
-Memory Lab is built on evidence-based memory techniques:
-
-### Spaced Repetition
-Reviewing information at increasing intervals moves it from short-term to long-term memory. The SM-2 algorithm optimizes these intervals based on your performance.
-
-### Active Recall
-Testing yourself is far more effective than re-reading. Memory Lab forces you to retrieve information from memory without looking at the source.
-
-### Working Memory Training
-Working memory (short-term memory capacity) can be improved through targeted exercises. Memory Lab includes dynamic challenges to strengthen this cognitive ability.
-
-### Wellness Integration
-Sleep, stress, and exercise significantly impact memory consolidation. Memory Lab tracks these factors to help you understand how your lifestyle affects your learning.
+---
 
 ## 🔧 Configuration
 
@@ -169,78 +257,91 @@ Edit the `CATEGORIES` object in `client/src/pages/Home.tsx`:
 
 ```typescript
 const CATEGORIES = {
-  study: { label: "Study", color: "#6EE7B7", icon: "📚" },
-  // Add more categories...
+  study: { label: "Study", icon: "📚" },
+  work: { label: "Work", icon: "💼" },
+  names: { label: "Names & Faces", icon: "👤" },
+  language: { label: "Language", icon: "🌍" },
+  health: { label: "Health", icon: "🏥" },
+  procedures: { label: "Procedures", icon: "⚙️" },
 };
 ```
 
 ### Adjust SM-2 Parameters
-Modify the `sm2()` function in `client/src/components/SessionScreen.tsx` to change:
+Modify the `sm2()` function in `client/src/components/SessionScreen.tsx` to customize:
 - Initial ease factor
 - Interval multipliers
 - Minimum ease factor
 
-## 🌙 Dark Theme
+---
 
-Memory Lab uses a sophisticated dark theme optimized for focus and reduced eye strain:
-- Deep slate backgrounds
-- Cyan and blue accent colors
-- High contrast text for readability
-- Smooth transitions and animations
+## 🌙 Theme & Design
+
+Memory Lab features:
+- **Dark Theme** — Optimized for focus and reduced eye strain
+- **Deep Slate Backgrounds** — Calming and professional
+- **Cyan & Blue Accents** — Modern and energetic
+- **High Contrast Text** — Excellent readability
+- **Smooth Animations** — Polished user experience
+
+---
 
 ## 📱 Responsive Design
 
-Memory Lab works on:
-- ✅ Desktop browsers
-- ✅ Tablets
-- ✅ Mobile phones
+Memory Lab works seamlessly on:
+- ✅ Desktop browsers (Chrome, Firefox, Safari, Edge)
+- ✅ Tablets (iPad, Android tablets)
+- ✅ Mobile phones (iOS, Android)
 
-## 💾 Data Storage
+---
 
-All data is stored locally in your browser using **LocalStorage**:
-- ✅ No data sent to external servers
-- ✅ Works completely offline
-- ✅ Data persists between sessions
-- ⚠️ Clearing browser cache will delete data
+## 🚀 Future Enhancements
 
-**Recommendation:** Regularly export your data as backup (feature coming soon)
+- [ ] Cloud sync across devices
+- [ ] User authentication
+- [ ] FSRS algorithm (advanced spaced repetition)
+- [ ] AI-generated quiz questions
+- [ ] Mobile app (React Native)
+- [ ] Social features (share progress, compete)
+- [ ] Advanced analytics and visualizations
+- [ ] Customizable memory palace templates
+- [ ] Audio/video content support
+- [ ] Export/import functionality
+- [ ] Dark/light theme toggle
+- [ ] Multiple languages
 
-## 🚀 Future Features
-
-- 📊 Advanced analytics and charts
-- 🎤 Voice recording for active recall
-- 🤖 AI-powered quiz generation
-- 📱 Mobile app (React Native)
-- ☁️ Cloud sync across devices
-- 🔔 Smart notifications
-- 🎨 Customizable themes
-- 📚 Shared learning decks
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to:
+Contributions are welcome! Please feel free to:
 - Report bugs
 - Suggest features
 - Submit pull requests
 - Share feedback
 
+---
+
 ## 📄 License
 
-MIT License - Feel free to use this project for personal or commercial purposes.
+MIT License — Feel free to use this project for personal or commercial purposes.
+
+---
 
 ## 👨‍💻 Author
 
-Created with ❤️ by **Manus AI** for **Leo Oliveira**
+Created with ❤️ by **Leo Oliveira** using **Manus AI**
+
+---
 
 ## 📞 Support
 
 For issues, questions, or suggestions:
 - Open an issue on GitHub
 - Check the documentation above
-- Review the code comments for technical details
+- Review code comments for technical details
 
 ---
 
 **Start training your memory today!** 🧠✨
 
-Remember: Consistency is key. Train for just 7 minutes daily to see remarkable improvements in your memory over weeks and months.
+**Remember:** Consistency is key. Train for just 7 minutes daily to see remarkable improvements in your memory over weeks and months.
