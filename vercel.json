@@ -2,7 +2,26 @@
   "buildCommand": "pnpm build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "installCommand": "pnpm install",
+  "devCommand": "pnpm dev",
   "env": {
     "NODE_ENV": "production"
-  }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=3600"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
