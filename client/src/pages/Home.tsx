@@ -12,6 +12,7 @@ import { Brain, Flame, Plus, BookOpen, BarChart3, Zap, Eye, Moon, Sun, Inbox } f
 import { toast } from "sonner";
 import SessionScreen from "@/components/SessionScreen";
 import HelpGuide from "@/components/HelpGuide";
+import CloudSyncPanel from "@/components/CloudSyncPanel";
 import { CURRICULUM_30_DAYS } from "@/lib/curriculum30days";
 
 interface MemoryItem {
@@ -244,6 +245,7 @@ export default function Home() {
   const [showCaptureDialog, setShowCaptureDialog] = useState(false);
   const [showJournalDialog, setShowJournalDialog] = useState(false);
   const [showPalaceDialog, setShowPalaceDialog] = useState(false);
+  const [showCloudSyncPanel, setShowCloudSyncPanel] = useState(false);
   const [editingItem, setEditingItem] = useState<MemoryItem | null>(null);
   const [revealedReviewId, setRevealedReviewId] = useState<string | null>(null);
   const [currentChallengeIndex, setCurrentChallengeIndex] = useState(0);
@@ -565,9 +567,14 @@ export default function Home() {
             </h1>
             <p className="text-gray-400">Adaptive memory system: retrieval, deep encoding, capture, reflection, and palace mapping.</p>
           </div>
-          <div className="bg-orange-500/20 border border-orange-500/50 rounded-lg px-4 py-2 flex items-center gap-2">
-            <Flame className="w-5 h-5 text-orange-400" />
-            <span className="text-white font-bold">{streak} day streak</span>
+          <div className="flex items-center gap-3">
+            <Button onClick={() => setShowCloudSyncPanel(true)} variant="outline" className="border-slate-600 text-white hover:bg-slate-700">
+              Cloud Sync
+            </Button>
+            <div className="bg-orange-500/20 border border-orange-500/50 rounded-lg px-4 py-2 flex items-center gap-2">
+              <Flame className="w-5 h-5 text-orange-400" />
+              <span className="text-white font-bold">{streak} day streak</span>
+            </div>
           </div>
         </div>
 
@@ -1250,6 +1257,7 @@ export default function Home() {
         />
       )}
     </div>
+    <CloudSyncPanel isOpen={showCloudSyncPanel} onClose={() => setShowCloudSyncPanel(false)} onSync={() => window.location.reload()} />
     </>
   );
 }
