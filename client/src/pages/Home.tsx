@@ -11,6 +11,7 @@ import { Progress } from "@/components/ui/progress";
 import { Brain, Flame, Plus, BookOpen, BarChart3, Zap, Eye, Moon, Sun, Inbox } from "lucide-react";
 import { toast } from "sonner";
 import SessionScreen from "@/components/SessionScreen";
+import HelpGuide from "@/components/HelpGuide";
 import { CURRICULUM_30_DAYS } from "@/lib/curriculum30days";
 
 interface MemoryItem {
@@ -552,6 +553,8 @@ export default function Home() {
   }, [palaces, items]);
 
   return (
+    <>
+    <HelpGuide />
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
@@ -1247,5 +1250,6 @@ export default function Home() {
         />
       )}
     </div>
+    </>
   );
 }
